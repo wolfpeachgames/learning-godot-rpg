@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const MAX_PLAYER_MOVEMENT_SPEED = 100.0
+const MAX_PLAYER_MOVEMENT_SPEED = 80
 const ACCELERATION = 5000
 const FRICTION = 900
 
