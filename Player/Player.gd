@@ -23,7 +23,7 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 
-	move_and_collide(velocity * delta)
+	move_and_slide(velocity)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
