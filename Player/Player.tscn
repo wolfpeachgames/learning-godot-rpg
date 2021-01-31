@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
@@ -6,6 +6,70 @@
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.68675
 height = 14.6028
+
+[sub_resource type="Animation" id=24]
+resource_name = "PlayerAttackDown"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "PlayerAttackLeft"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "PlayerAttackRight"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26, 27 ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "PlayerAttackUp"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 28, 29, 30, 31 ]
+}
 
 [sub_resource type="Animation" id=9]
 resource_name = "PlayerIdleDown"
@@ -215,6 +279,7 @@ script = ExtResource( 1 )
 position = Vector2( 0.486137, -6.98354 )
 texture = ExtResource( 2 )
 hframes = 60
+frame = 36
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.00501251, 1.99413 )
@@ -223,6 +288,10 @@ scale = Vector2( 0.65, 0.4 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/PlayerAttackDown = SubResource( 24 )
+anims/PlayerAttackLeft = SubResource( 27 )
+anims/PlayerAttackRight = SubResource( 25 )
+anims/PlayerAttackUp = SubResource( 26 )
 anims/PlayerIdleDown = SubResource( 9 )
 anims/PlayerIdleLeft = SubResource( 8 )
 anims/PlayerIdleRight = SubResource( 5 )
