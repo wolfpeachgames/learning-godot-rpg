@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
@@ -235,7 +235,6 @@ anims/PlayerRunUp = SubResource( 3 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 15 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 16 )
 parameters/Idle/blend_position = Vector2( 0.902857, 0.576565 )
 parameters/Run/blend_position = Vector2( 0, 0 )

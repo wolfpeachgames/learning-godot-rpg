@@ -13,8 +13,8 @@ onready var animationState = animationTree.get("parameters/playback")
 
 
 # Called when the node enters the scene tree for the first time.
-# func _ready():
-# 	pass
+func _ready():
+	animationTree.active = true
 
 
 # Called every 'tick' that physics update. 'delta' is the elapsed time since the previous frame.
