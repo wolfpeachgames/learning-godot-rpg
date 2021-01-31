@@ -39,8 +39,8 @@ func _ready():
 	animationTree.active = true
 
 
-# Called every 'tick' that physics update. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
 	match state:
 		MOVE_STATE:
 			move_state(delta)
@@ -89,6 +89,6 @@ func attack_animation_finished():
 	state = MOVE_STATE
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(delta):
+# Called every 'tick' that physics update. 'delta' is the elapsed time since the previous frame.
+# func _physics_process(delta):
 # 	pass
