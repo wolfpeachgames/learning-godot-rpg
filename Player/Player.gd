@@ -7,6 +7,9 @@ const FRICTION = 900
 var velocity = Vector2.ZERO
 
 onready var animationPlayer = $AnimationPlayer
+onready var animationTree = $AnimationTree
+# get the state machine from the animation tree to control which animation should be playing
+onready var animationState = animationTree.get("parameters/playback")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,10 +26,12 @@ func _physics_process(delta):
 	input_vector = input_vector.normalized()
 
 	if (input_vector != Vector2.ZERO):
-		animationPlayer.play(getMovementAnimationFromVector(input_vector))
+		animationTree.set("parameters/Idle/blend_position", input_vector)
+		animationTree.set("parameters/Run/blend_position", input_vector)
+		animationState.travel("Run")
 		velocity = velocity.move_toward(input_vector * MAX_PLAYER_MOVEMENT_SPEED, ACCELERATION * delta)
 	else:
-		animationPlayer.play("PlayerIdleDown")
+		animationState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 
 	move_and_slide(velocity)
@@ -35,15 +40,3 @@ func _physics_process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # func _process(delta):
 # 	pass
-
-func getMovementAnimationFromVector(vector):
-	var animation = "PlayerIdleDown"
-	if (vector.y < 0):
-		animation = "PlayerRunUp"
-	elif (vector.y > 0):
-		animation = "PlayerRunDown"
-	if (vector.x < 0):
-		animation = "PlayerRunLeft"
-	elif (vector.x > 0):
-		animation = "PlayerRunRight"
-	return animation
