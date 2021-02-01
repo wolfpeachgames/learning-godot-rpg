@@ -54,6 +54,5 @@ animations = [ {
 [node name="NPCDeathEffect" type="AnimatedSprite"]
 frames = SubResource( 11 )
 animation = "EffectAnimation"
-centered = false
-offset = Vector2( -8, -8 )
+offset = Vector2( 0, -8 )
 script = ExtResource( 1 )
