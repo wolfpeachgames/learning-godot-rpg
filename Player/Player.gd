@@ -37,11 +37,13 @@ onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 # get the state machine from the animation tree to control which animation should be playing
 onready var animationState = animationTree.get("parameters/playback")
+onready var swordHitbox = $HitboxPivot/SwordHitbox
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	animationTree.active = true
+	swordHitbox.knockback_vector = roll_vector
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -63,6 +65,7 @@ func move_state(delta):
 
 	if (input_vector != Vector2.ZERO):
 		roll_vector = input_vector # save roll direction
+		swordHitbox.knockback_vector = input_vector # save direction to knockback NPCs
 		set_animation_blend_positions(input_vector) # update direction for all animations
 		animationState.travel(RUN_ANIMATION) # initiate running animation
 		velocity = velocity.move_toward(input_vector * MAX_PLAYER_MOVEMENT_SPEED, ACCELERATION * delta)
