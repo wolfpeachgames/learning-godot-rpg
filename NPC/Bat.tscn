@@ -58,11 +58,11 @@ texture = ExtResource( 2 )
 shape = SubResource( 7 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
-position = Vector2( -22.6594, 18.0174 )
+position = Vector2( 0.00253296, -15.2263 )
 collision_layer = 8
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2( 22.9428, -32.9628 )
+position = Vector2( -0.0936394, 0.561867 )
 shape = SubResource( 8 )
 
 [node name="Stats" parent="." instance=ExtResource( 5 )]
