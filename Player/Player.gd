@@ -39,6 +39,7 @@ onready var animationTree = $AnimationTree
 # get the state machine from the animation tree to control which animation should be playing
 onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
+onready var hurtbox = $Hurtbox
 
 
 # Called when the node enters the scene tree for the first time.
@@ -117,3 +118,5 @@ func move():
 
 func _on_Hurtbox_area_entered(area):
 	stats.health -= 1
+	hurtbox.start_invincibility(0.5)
+	hurtbox.create_hit_effect()

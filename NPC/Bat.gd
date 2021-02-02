@@ -14,6 +14,7 @@ var state = CHASE_STATE
 onready var sprite = $AnimatedSprite
 onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
+onready var hurtbox = $Hurtbox
 
 func _ready():
 	sprite.play()
@@ -50,6 +51,7 @@ func seek_player():
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 100
+	hurtbox.create_hit_effect()
 
 # on no health signal from stats
 func _on_Stats_no_health():
