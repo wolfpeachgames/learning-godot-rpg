@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://World/sidewalk2.png" type="Texture" id=6]
 [ext_resource path="res://NPC/Crow.tscn" type="PackedScene" id=7]
 [ext_resource path="res://NPC/Bat.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UI/HealthUI.tscn" type="PackedScene" id=9]
 
 [sub_resource type="TileSet" id=1]
 0/name = "sidewalk2.png 0"
@@ -569,3 +570,5 @@ position = Vector2( 136, 8 )
 
 [node name="Bat" parent="YSort/Creatures" instance=ExtResource( 8 )]
 position = Vector2( 248, 80 )
+
+[node name="HealthUI" parent="." instance=ExtResource( 9 )]
