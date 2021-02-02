@@ -3,6 +3,7 @@ extends KinematicBody2D
 export var ACCELERATION = 250
 export var FRICTION = 100
 export var MAX_MOVEMENT_SPEED = 45
+export var WANDER_BUFFER = 3
 
 enum { IDLE_STATE, WANDER_STATE, CHASE_STATE }
 
@@ -10,12 +11,13 @@ const NPCDeathEffect = preload("res://Effects/NPCDeathEffect.tscn")
 
 var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
-var state = CHASE_STATE
+var state = WANDER_STATE
 onready var sprite = $AnimatedSprite
 onready var stats = $Stats
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var hurtbox = $Hurtbox
 onready var softCollision = $SoftCollisionComponent
+onready var wanderController = $WanderController
 
 
 func _ready():
@@ -63,10 +65,17 @@ func _on_Stats_no_health():
 func do_idle(delta):
 	velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	seek_player()
+	should_change_state()
 
 
 func do_wander(delta):
-	pass
+	seek_player()
+	should_change_state()
+	var direction_vector = global_position.direction_to(wanderController.target_position)
+	velocity = velocity.move_toward(direction_vector * MAX_MOVEMENT_SPEED, ACCELERATION * delta)
+	if (global_position.distance_to(wanderController.target_position) <= WANDER_BUFFER):
+		change_state()
+	sprite.flip_h = velocity.x < 0
 
 
 func do_chase(delta):
@@ -77,3 +86,18 @@ func do_chase(delta):
 	else:
 		state = IDLE_STATE
 	sprite.flip_h = velocity.x < 0
+
+
+func should_change_state():
+	if (wanderController.get_time_left() <= 0):
+		change_state()
+
+
+func change_state():
+	state = pick_random_state([IDLE_STATE, WANDER_STATE])
+	wanderController.start_wander_timer(rand_range(0.2, 1.0))
+
+
+func pick_random_state(state_list):
+	state_list.shuffle()
+	return state_list.pop_front()
