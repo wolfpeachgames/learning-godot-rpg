@@ -32,6 +32,7 @@ enum {
 var state = MOVE_STATE
 var velocity = Vector2.ZERO
 var roll_vector = Vector2.ZERO
+var stats = PlayerStats
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -42,6 +43,8 @@ onready var swordHitbox = $HitboxPivot/SwordHitbox
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# should connect to player death functionality eventually rather than queue_free
+	stats.connect("no_health", self, "queue_free")
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
 
@@ -111,6 +114,6 @@ func roll_animation_finished():
 func move():
 	velocity = move_and_slide(velocity)
 
-# Called every 'tick' that physics update. 'delta' is the elapsed time since the previous frame.
-# func _physics_process(delta):
-# 	pass
+
+func _on_Hurtbox_area_entered(area):
+	stats.health -= 1
