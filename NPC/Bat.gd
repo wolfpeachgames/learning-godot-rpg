@@ -71,20 +71,22 @@ func do_idle(delta):
 func do_wander(delta):
 	seek_player()
 	should_change_state()
-	var direction_vector = global_position.direction_to(wanderController.target_position)
-	velocity = velocity.move_toward(direction_vector * MAX_MOVEMENT_SPEED, ACCELERATION * delta)
+	accelerate_towards_point(wanderController.target_position, delta)
 	if (global_position.distance_to(wanderController.target_position) <= WANDER_BUFFER):
 		change_state()
-	sprite.flip_h = velocity.x < 0
 
 
 func do_chase(delta):
 	var player  = playerDetectionZone.player
 	if (player != null):
-		var direction_vector = global_position.direction_to(player.global_position)
-		velocity = velocity.move_toward(direction_vector * MAX_MOVEMENT_SPEED, ACCELERATION * delta)
+		accelerate_towards_point(player.global_position, delta)
 	else:
 		state = IDLE_STATE
+
+
+func accelerate_towards_point(point, delta):
+	var direction_vector = global_position.direction_to(point)
+	velocity = velocity.move_toward(direction_vector * MAX_MOVEMENT_SPEED, ACCELERATION * delta)
 	sprite.flip_h = velocity.x < 0
 
 
