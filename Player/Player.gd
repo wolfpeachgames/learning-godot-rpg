@@ -18,6 +18,8 @@ const RUN_ANIMATION = "Run"
 const ATTACK_ANIMATION = "Attack"
 const IDLE_ANIMATION = "Idle"
 const ROLL_ANIMATION = "Roll"
+const START_BLINK_ANIMATION = "StartBlink"
+const STOP_BLINK_ANIMATION = "StopBlink"
 
 const BLEND_POSTITION_TEMPLATE_STRING = "parameters/%s/blend_position"
 const ATTACK_BLEND_POSTION = BLEND_POSTITION_TEMPLATE_STRING % ATTACK_ANIMATION
@@ -42,6 +44,7 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
+onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -126,3 +129,11 @@ func _on_Hurtbox_area_entered(_area):
 	hurtbox.create_hit_effect()
 	var playerHurtSound = PlayerHurtSound.instance()
 	get_tree().current_scene.add_child(playerHurtSound)
+
+
+func _on_Hurtbox_invincibility_started():
+	blinkAnimationPlayer.play(START_BLINK_ANIMATION)
+
+
+func _on_Hurtbox_invincibility_ended():
+	blinkAnimationPlayer.play(STOP_BLINK_ANIMATION)
