@@ -80,7 +80,9 @@ func move_state(delta):
 	move()
 
 	if (Input.is_action_just_pressed(CONTROL_ROLL)):
+		# hurtbox.start_invincibility(1.0)
 		state = ROLL_STATE
+		
 
 	if (Input.is_action_just_pressed(CONTROL_ATTACK)):
 		state = ATTACK_STATE
@@ -117,6 +119,7 @@ func move():
 
 
 func _on_Hurtbox_area_entered(area):
+	# print(hurtbox.monitorable)
 	stats.health -= 1
 	hurtbox.start_invincibility(0.5)
 	hurtbox.create_hit_effect()
