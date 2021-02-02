@@ -58,9 +58,9 @@ func _process(delta):
 		MOVE_STATE:
 			move_state(delta)
 		ROLL_STATE:
-			roll_state(delta)
+			roll_state()
 		ATTACK_STATE:
-			attack_state(delta)
+			attack_state()
 
 
 func move_state(delta):
@@ -90,12 +90,12 @@ func move_state(delta):
 		state = ATTACK_STATE
 
 
-func attack_state(delta):
+func attack_state():
 	velocity = Vector2.ZERO
 	animationState.travel(ATTACK_ANIMATION)
 
 
-func roll_state(delta):
+func roll_state():
 	velocity = roll_vector * PLAYER_ROLL_SPEED
 	animationState.travel(ROLL_ANIMATION)
 	move()
