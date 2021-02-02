@@ -120,8 +120,7 @@ func move():
 	velocity = move_and_slide(velocity)
 
 
-func _on_Hurtbox_area_entered(area):
-	# print(hurtbox.monitorable)
+func _on_Hurtbox_area_entered(_area):
 	stats.health -= 1
 	hurtbox.start_invincibility(0.5)
 	hurtbox.create_hit_effect()
