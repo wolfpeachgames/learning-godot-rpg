@@ -17,8 +17,10 @@ onready var playerDetectionZone = $PlayerDetectionZone
 onready var hurtbox = $Hurtbox
 onready var softCollision = $SoftCollisionComponent
 
+
 func _ready():
 	sprite.play()
+
 
 # every physics tick
 func _physics_process(delta):
@@ -27,18 +29,11 @@ func _physics_process(delta):
 
 	match state:
 		IDLE_STATE:
-			velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
-			seek_player()
+			do_idle(delta)
 		WANDER_STATE:
-			pass
+			do_wander(delta)
 		CHASE_STATE:
-			var player  = playerDetectionZone.player
-			if (player != null):
-				var direction_vector = global_position.direction_to(player.global_position)
-				velocity = velocity.move_toward(direction_vector * MAX_MOVEMENT_SPEED, ACCELERATION * delta)
-			else:
-				state = IDLE_STATE
-			sprite.flip_h = velocity.x < 0
+			do_chase(delta)
 	
 	if (softCollision.is_colliding()):
 		velocity += softCollision.get_push_vector() * delta * ACCELERATION
@@ -49,11 +44,13 @@ func seek_player():
 	if (playerDetectionZone.can_see_player()):
 		state = CHASE_STATE
 
+
 # on hurtbox collision detection
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 100
 	hurtbox.create_hit_effect()
+
 
 # on no health signal from stats
 func _on_Stats_no_health():
@@ -61,3 +58,22 @@ func _on_Stats_no_health():
 	self.get_parent().add_child(npcDeathEffect)
 	npcDeathEffect.global_position = self.global_position
 	self.queue_free()
+
+
+func do_idle(delta):
+	velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+	seek_player()
+
+
+func do_wander(delta):
+	pass
+
+
+func do_chase(delta):
+	var player  = playerDetectionZone.player
+	if (player != null):
+		var direction_vector = global_position.direction_to(player.global_position)
+		velocity = velocity.move_toward(direction_vector * MAX_MOVEMENT_SPEED, ACCELERATION * delta)
+	else:
+		state = IDLE_STATE
+	sprite.flip_h = velocity.x < 0
