@@ -7,7 +7,6 @@ const ACCELERATION = 5000
 const FRICTION = 900
 const PLAYER_ROLL_SPEED = 110
 const INVINCIBLE_DURATION = 0.6
-const DAMAGE_TAKEN = 1
 
 const CONTROL_UP = "ui_up"
 const CONTROL_DOWN = "ui_down"
@@ -125,8 +124,8 @@ func move():
 	velocity = move_and_slide(velocity)
 
 
-func _on_Hurtbox_area_entered(_area):
-	stats.health -= DAMAGE_TAKEN
+func _on_Hurtbox_area_entered(area):
+	stats.health -= area.damage
 	hurtbox.start_invincibility(INVINCIBLE_DURATION)
 	hurtbox.create_hit_effect()
 	var playerHurtSound = PlayerHurtSound.instance()
