@@ -10,14 +10,7 @@ signal invincibility_started
 signal invincibility_ended
 
 onready var timer = $Timer
-
-
-# func _on_Hurtbox_area_entered(area):
-# 	if (show_hit):
-# 		var effect = HitEffect.instance()
-# 		var main = get_tree().current_scene
-# 		main.add_child(effect)
-# 		effect.global_position = self.global_position
+onready var collisionShape = $CollisionShape2D
 
 
 func create_hit_effect():
@@ -45,8 +38,8 @@ func _on_Timer_timeout():
 
 
 func _on_Hurtbox_invincibility_ended():
-	set_deferred("monitorable", true)
+	collisionShape.set_deferred("disabled", false)
 
 
 func _on_Hurtbox_invincibility_started():
-	set_deferred("monitorable", false)
+	collisionShape.set_deferred("disabled", true)
