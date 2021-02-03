@@ -4,8 +4,12 @@ export var ACCELERATION = 250
 export var FRICTION = 100
 export var MAX_MOVEMENT_SPEED = 45
 export var WANDER_BUFFER = 3
+export var INVINCIBLE_DURATION = 0.4
 
 enum { IDLE_STATE, WANDER_STATE, CHASE_STATE }
+
+const START_BLINK_ANIMATION = "StartBlink"
+const STOP_BLINK_ANIMATION = "StopBlink"
 
 const NPCDeathEffect = preload("res://Effects/NPCDeathEffect.tscn")
 
@@ -18,6 +22,7 @@ onready var playerDetectionZone = $PlayerDetectionZone
 onready var hurtbox = $Hurtbox
 onready var softCollision = $SoftCollisionComponent
 onready var wanderController = $WanderController
+onready var animationPlayer = $AnimationPlayer
 
 
 func _ready():
@@ -52,6 +57,7 @@ func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 100
 	hurtbox.create_hit_effect()
+	hurtbox.start_invincibility(INVINCIBLE_DURATION)
 
 
 # on no health signal from stats
@@ -103,3 +109,11 @@ func change_state():
 func pick_random_state(state_list):
 	state_list.shuffle()
 	return state_list.pop_front()
+
+
+func _on_Hurtbox_invincibility_started():
+	animationPlayer.play(START_BLINK_ANIMATION)
+
+
+func _on_Hurtbox_invincibility_ended():
+	animationPlayer.play(STOP_BLINK_ANIMATION)
