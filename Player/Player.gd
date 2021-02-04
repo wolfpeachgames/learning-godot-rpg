@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const PlayerHurtSound = preload("res://Player/PlayerHurtSound.tscn")
 
-const MAX_PLAYER_MOVEMENT_SPEED = 75
+export var MAX_PLAYER_MOVEMENT_SPEED = 75
 const ACCELERATION = 5000
 const FRICTION = 900
 const PLAYER_ROLL_SPEED = 110
