@@ -36,6 +36,8 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
+[ext_resource path="res://Shadows/MediumShadow.png" type="Texture" id=13]
+[ext_resource path="res://Player/Raccoon.png" type="Texture" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -609,3 +611,13 @@ smoothing_speed = 4.0
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="UI" instance=ExtResource( 9 )]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 123.75, 49 )
+scale = Vector2( 1.78125, 1 )
+texture = ExtResource( 13 )
+
+[node name="Raccoon" type="Sprite" parent="."]
+position = Vector2( 123, 40 )
+texture = ExtResource( 14 )
+
