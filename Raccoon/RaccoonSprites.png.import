@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/RaccoonSprites.png-3af28309315cd8a3aa763021e18e47bf.stex"
+path="res://.import/RaccoonSprites.png-143d7178a8a66bdb2eb555289a645faf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/RaccoonSprites.png"
-dest_files=[ "res://.import/RaccoonSprites.png-3af28309315cd8a3aa763021e18e47bf.stex" ]
+source_file="res://Raccoon/RaccoonSprites.png"
+dest_files=[ "res://.import/RaccoonSprites.png-143d7178a8a66bdb2eb555289a645faf.stex" ]
 
 [params]
 
