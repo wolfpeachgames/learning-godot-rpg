@@ -25,7 +25,7 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 
 
-func _process(delta):
+func _process(delta: float) -> void:
 	match state:
 		MOVE_STATE:
 			do_move_state(delta)
