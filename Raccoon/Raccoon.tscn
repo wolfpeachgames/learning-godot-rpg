@@ -166,6 +166,7 @@ states/RaccoonIdle/position = Vector2( 487, 102 )
 states/RaccoonWalk/node = SubResource( 15 )
 states/RaccoonWalk/position = Vector2( 745, 102 )
 transitions = [ "RaccoonIdle", "RaccoonWalk", SubResource( 22 ), "RaccoonWalk", "RaccoonIdle", SubResource( 23 ) ]
+start_node = "RaccoonIdle"
 graph_offset = Vector2( -58, -176 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
