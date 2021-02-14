@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Raccoon/RaccoonSprites.png" type="Texture" id=1]
 [ext_resource path="res://Raccoon/Raccoon.gd" type="Script" id=2]
@@ -79,15 +79,19 @@ blend_mode = 1
 radius = 3.0
 height = 14.0
 
+[sub_resource type="OccluderPolygon2D" id=7]
+polygon = PoolVector2Array( -4, -11, 1, -11, 9, -10, 9, -6, 9, -4, 9, -1, 1, -1, -5, -2, -5, -4, -5, -7 )
+
 [node name="Raccoon" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 1.5, 8 )
+position = Vector2( 1.5, 2 )
 scale = Vector2( 1.8125, 0.8 )
 texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -6 )
 texture = ExtResource( 1 )
 hframes = 14
 frame = 13
@@ -104,6 +108,9 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/blend_position = Vector2( 0, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2, 7 )
+position = Vector2( 2, 1 )
 rotation = 1.5708
 shape = SubResource( 6 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 7 )
