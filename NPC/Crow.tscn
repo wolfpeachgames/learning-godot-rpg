@@ -1,8 +1,26 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=1]
 [ext_resource path="res://NPC/Crow.gd" type="Script" id=2]
 [ext_resource path="res://NPC/crow1-sheet.png" type="Texture" id=3]
+[ext_resource path="res://NPC/PlayerDetectionZone.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Animation" id=5]
+resource_name = "CrowFly"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 14, 15, 16, 17 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "CrowIdle"
@@ -21,9 +39,45 @@ tracks/0/keys = {
 "values": [ 0, 1, 0, 2, 3, 2, 3, 2 ]
 }
 
-[sub_resource type="AnimationNodeStateMachine" id=2]
+[sub_resource type="Animation" id=4]
+resource_name = "CrowTakeoff"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+}
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=6]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=7]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=8]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+
+[sub_resource type="AnimationNodeStateMachine" id=11]
+states/CrowFlying/node = SubResource( 6 )
+states/CrowFlying/position = Vector2( 611, 110 )
+states/CrowIdle/node = SubResource( 7 )
+states/CrowIdle/position = Vector2( 382, 228 )
+states/CrowTakingOff/node = SubResource( 8 )
+states/CrowTakingOff/position = Vector2( 604, 228 )
+transitions = [ "CrowIdle", "CrowTakingOff", SubResource( 9 ), "CrowTakingOff", "CrowFlying", SubResource( 10 ) ]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 56.9287
 
 [node name="Crow" type="Node2D"]
 script = ExtResource( 2 )
@@ -35,12 +89,25 @@ texture = ExtResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 hframes = 18
-frame = 1
+frame = 17
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CrowFly = SubResource( 5 )
 anims/CrowIdle = SubResource( 1 )
+anims/CrowTakeoff = SubResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 2 )
+tree_root = SubResource( 11 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 3 )
+parameters/CrowFlying/blend_position = Vector2( 0, 0 )
+parameters/CrowIdle/blend_position = Vector2( 0, 0 )
+parameters/CrowTakingOff/blend_position = Vector2( 0, 0 )
+
+[node name="PlayerDetectionZone" parent="." instance=ExtResource( 4 )]
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+shape = SubResource( 12 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="PlayerDetectionZone"]
